@@ -1,4 +1,5 @@
 import {
+  Form,
   json, Link, Links, LinksFunction, LiveReload, LoaderFunction, Meta, MetaFunction, Outlet,
   Scripts,
   ScrollRestoration
@@ -51,7 +52,7 @@ export default function App() {
               <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
                   <Link to="/fruits" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
-                    Fruit
+                    Fruits
                   </Link>
                   <Link to="/drinks" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
                     Drinks
@@ -67,9 +68,24 @@ export default function App() {
                 </div>
                 <div className="">
                   {user ? (
-                    <div><Link to="/logout" className="p-3 text-white">Log out</Link></div>
+                    <div>
+                      <Form action="/logout" method="post">
+                        <button
+                          type="submit"
+                          className="rounded bg-slate-600 py-2 px-4 text-blue-100 hover:bg-blue-500 active:bg-blue-600"
+                        >
+                          Logout
+                        </button>
+                      </Form>
+                    </div>
                   ) : (
                     <div >
+                      <Link
+                        to="/join"
+                        className="p-3 text-white"
+                      >
+                        Sign up
+                      </Link>
                       <Link
                         to="/login"
                         className="p-3 text-white"
