@@ -1,3 +1,7 @@
 export default function DrinksPage() {
-  return <div>Drinks</div>;
+  return (
+    <main>
+      Drinks
+    </main>
+  );
 }

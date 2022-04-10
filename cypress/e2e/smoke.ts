@@ -26,12 +26,12 @@ describe("smoke tests", () => {
     cy.login();
     cy.visit("/");
 
-    cy.findByRole("link", { name: /fruits/i }).click();
+    cy.findByRole("link", { name: /items/i }).click();
 
     cy.findAllByRole("button", { name: /add to cart/i }).first().click();
     cy.on("window:alert", (text) => {
       expect(text).to.equal(
-        `Added Blueberries to cart`
+        `Added Frozen Mango to cart`
       );
     })
   });
