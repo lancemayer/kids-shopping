@@ -35,7 +35,7 @@ export function createItem({
 export function deleteItem({
   id,
 }: Pick<Item, "id">) {
-  return prisma.item.deleteMany({
+  return prisma.item.delete({
     where: { id },
   });
 }
