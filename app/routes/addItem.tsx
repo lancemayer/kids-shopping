@@ -1,4 +1,5 @@
-import { ActionFunction, Form, json, unstable_createFileUploadHandler, unstable_parseMultipartFormData } from "remix";
+import { useEffect, useRef } from "react";
+import { ActionFunction, Form, json, unstable_createFileUploadHandler, unstable_parseMultipartFormData, useTransition } from "remix";
 import { createItem } from "~/models/item.server";
 
 export const action: ActionFunction = async ({ request }) => {
@@ -27,12 +28,25 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function AddItemPage() {
+  let transition = useTransition();
+  let isAdding = transition.state === "submitting";
+
+  let formRef = useRef<HTMLFormElement>(null);
+  let titleFieldRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!isAdding) {
+      formRef.current?.reset();
+      titleFieldRef.current?.focus();
+    }
+  }, [isAdding]);
+
   return (
     <div>
-      <Form method="post" encType="multipart/form-data">
+      <Form ref={formRef} replace method="post" encType="multipart/form-data">
         <label>
           Title:
-          <input className="border-4" type="text" name="title" />
+          <input ref={titleFieldRef} className="border-4" type="text" name="title" />
         </label>
         <label>
           Image File:
