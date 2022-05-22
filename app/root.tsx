@@ -71,6 +71,9 @@ export default function App() {
                   {user?.email === "lance@example.com" && <Link to="/addItem" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white">
                     Add Item
                   </Link>}
+                  {user?.email === "lance@example.com" && <Link to="/itemManagement" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white">
+                    Item Management
+                  </Link>}
                 </div>
                 <div className="">
                   {user ? (
