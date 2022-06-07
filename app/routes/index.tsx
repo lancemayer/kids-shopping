@@ -10,10 +10,12 @@ export default function Index() {
   let items: any[] = useLoaderData();
 
   return (
-    <main >
-      {items.map(item => (
-        <Thumbnail key={item.id} title={item.title} image={item.image} price={item.price} />
-      ))}
+    <main className="bg-gray-100 h-screen">
+      <div className="flex flex-wrap">
+        {items.map(item => (
+          <Thumbnail key={item.id} title={item.title} image={item.image} price={item.price} />
+        ))}
+      </div>
     </main>
   );
 }
