@@ -1,12 +1,25 @@
+import type { ActionFunction } from "@remix-run/node";
+import {
+  json,
+  unstable_composeUploadHandlers,
+  unstable_createFileUploadHandler,
+  unstable_createMemoryUploadHandler,
+  unstable_parseMultipartFormData,
+} from "@remix-run/node";
+import { Form, useTransition } from "@remix-run/react";
 import { useEffect, useRef } from "react";
-import { ActionFunction, Form, json, unstable_createFileUploadHandler, unstable_parseMultipartFormData, useTransition } from "remix";
 import { createItem } from "~/models/item.server";
 
 export const action: ActionFunction = async ({ request }) => {
-  const uploadHandler = unstable_createFileUploadHandler({
-    directory: "public/images",
-    file: ({ filename }) => filename,
-  });
+  const uploadHandler = unstable_composeUploadHandlers(
+    unstable_createFileUploadHandler({
+      maxPartSize: 5_000_000,
+      directory: "public/images",
+      file: ({ filename }) => filename,
+    }),
+    // parse everything else into memory
+    unstable_createMemoryUploadHandler()
+  );
 
   const formData = await unstable_parseMultipartFormData(
     request,
@@ -17,15 +30,14 @@ export const action: ActionFunction = async ({ request }) => {
   let imageFile = formData.get("imageFile");
   let price = formData.get("price");
 
-  let createdItem = await createItem(
-    {
-      title: title as string,
-      image: "./images/" + (imageFile as File).name,
-      price: price as string
-    });
+  let createdItem = await createItem({
+    title: title as string,
+    image: "./images/" + (imageFile as File).name,
+    price: price as string,
+  });
 
   return json({ uploadedItem: createdItem });
-}
+};
 
 export default function AddItemPage() {
   let transition = useTransition();
@@ -46,15 +58,16 @@ export default function AddItemPage() {
       <Form ref={formRef} replace method="post" encType="multipart/form-data">
         <label>
           Title:
-          <input ref={titleFieldRef} className="border-4" type="text" name="title" />
+          <input
+            ref={titleFieldRef}
+            className="border-4"
+            type="text"
+            name="title"
+          />
         </label>
         <label>
           Image File:
-          <input
-            className="border-4"
-            type="file"
-            name="imageFile"
-          />
+          <input className="border-4" type="file" name="imageFile" />
         </label>
         <label>
           Price:
