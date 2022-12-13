@@ -2,22 +2,30 @@ import type { ActionFunction } from "@remix-run/node";
 import {
   json,
   unstable_composeUploadHandlers,
-  unstable_createFileUploadHandler,
   unstable_createMemoryUploadHandler,
   unstable_parseMultipartFormData,
 } from "@remix-run/node";
 import { Form, useTransition } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { uploadFileToObjectStorage } from "~/linodeUtils";
 import { createItem } from "~/models/item.server";
 
 export const action: ActionFunction = async ({ request }) => {
   const uploadHandler = unstable_composeUploadHandlers(
-    unstable_createFileUploadHandler({
-      maxPartSize: 5_000_000,
-      directory: "public/images",
-      file: ({ filename }) => filename,
-    }),
-    // parse everything else into memory
+    async ({ name, contentType, data, filename }) => {
+      console.log("name", name);
+      if (name !== "imageFile") {
+        return undefined;
+      }
+      const uploadedImage = await uploadFileToObjectStorage(
+        data,
+        filename,
+        contentType
+      );
+
+      return uploadedImage;
+    },
+
     unstable_createMemoryUploadHandler()
   );
 
@@ -32,7 +40,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   let createdItem = await createItem({
     title: title as string,
-    image: "./images/" + (imageFile as File).name,
+    image: imageFile as string,
     price: price as string,
   });
 
