@@ -182,19 +182,11 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-  release:
-    name: 🚀 Release
-    runs-on: ubuntu-latest
-    needs: [lint, typecheck, vitest, cypress, build]
-    if: ${{ github.ref == 'refs/tags/main' && github.event_name == 'push' }}
-    steps:
-      - name: 🛑 Cancel Previous Runs
-
   deploy:
     name: 🚀 Deploy
     runs-on: ubuntu-latest
     needs: [lint, typecheck, vitest, cypress, build]
-    # if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
+    if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
 
 
     steps:
