@@ -4,8 +4,8 @@ on:
     branches:
       - main
       - dev
-  tags:
-    - release/*
+    tags:
+      - release/*
 
 
 jobs:
