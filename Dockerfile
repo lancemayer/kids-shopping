@@ -37,7 +37,6 @@ ADD prisma .
 RUN npx prisma generate
 
 ADD . .
-RUN pnpm run postinstall
 RUN pnpm run build
 
 # Finally, build the production image with minimal footprint
