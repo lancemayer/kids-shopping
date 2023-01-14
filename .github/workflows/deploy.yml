@@ -55,7 +55,7 @@ jobs:
       - name: 🔎 Type check
         run: |
           pnpm install
-          pnpm typecheck --if-present
+          pnpm typecheck
 
   vitest:
     name: ⚡ Vitest
