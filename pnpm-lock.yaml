@@ -16,6 +16,7 @@ specifiers:
   '@testing-library/react': ^13.3.0
   '@testing-library/user-event': ^14.4.3
   '@types/bcryptjs': ^2.4.2
+  '@types/cookie': ^0.5.1
   '@types/eslint': ^8.4.5
   '@types/node': ^18.7.8
   '@types/react': ^18.0.17
@@ -72,6 +73,7 @@ devDependencies:
   '@testing-library/react': 13.3.0_biqbaboplfbrettd7655fr4n2y
   '@testing-library/user-event': 14.4.3_wl4iynrlixafokvgqnhzlvigei
   '@types/bcryptjs': 2.4.2
+  '@types/cookie': 0.5.1
   '@types/eslint': 8.4.6
   '@types/node': 18.7.8
   '@types/react': 18.0.17
@@ -3064,6 +3066,10 @@ packages:
 
   /@types/cookie/0.4.1:
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
+
+  /@types/cookie/0.5.1:
+    resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: true
 
   /@types/debug/4.1.7:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
