@@ -19,7 +19,7 @@ export const action: ActionFunction = async ({ request }) => {
       }
       const uploadedImage = await uploadFileToObjectStorage(
         data,
-        filename,
+        filename!, // todo: make this type safe, maybe use zod for validation
         contentType
       );
 
