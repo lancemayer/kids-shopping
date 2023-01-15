@@ -7,7 +7,9 @@ ENV NODE_ENV production
 # Install openssl for Prisma
 RUN apt-get update && apt-get install -y openssl
 
-RUN npm install -g pnpm
+# RUN npm install -g pnpm
+RUN corepack prepare pnpm@7.18.1 --activate
+RUN corepack enable
 
 # Install all node_modules, including dev dependencies
 FROM base as deps
