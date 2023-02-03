@@ -106,7 +106,7 @@ jobs:
       - name: 🛠 Setup Database
         run: |
           pnpm install
-          npx prisma migrate reset --force
+          pnpm dlx prisma migrate reset --force
 
       - name: ⚙️ Build
         run: pnpm build
