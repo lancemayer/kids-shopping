@@ -86,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.11.0
 
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
@@ -99,20 +99,19 @@ jobs:
         with:
           node-version: 16
 
-      - uses: pnpm/action-setup@v2.1.0
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
         with:
-          version: 7.22.0
+          useLockFile: false
 
       - name: 🛠 Setup Database
-        run: |
-          pnpm install
-          pnpm dlx prisma migrate reset --force
+        run: npx prisma migrate reset --force
 
       - name: ⚙️ Build
-        run: pnpm build
+        run: npm build
 
       - name: 🌳 Cypress run
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v5
         with:
           start: pnpm start:mocks
           wait-on: "http://localhost:8811"
