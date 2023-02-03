@@ -6,5 +6,5 @@
 #!/bin/sh
 
 set -ex
-npx prisma migrate deploy
-npm run start
+pnpm dlx prisma migrate deploy
+pnpm start

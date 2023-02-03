@@ -26,7 +26,7 @@ WORKDIR /myapp
 
 COPY --from=deps /myapp/node_modules /myapp/node_modules
 ADD package.json pnpm-lock.yaml ./
-RUN pnpm prune --prod
+# RUN pnpm prune --prod
 
 # Build the app
 FROM base as build
@@ -36,7 +36,7 @@ WORKDIR /myapp
 COPY --from=deps /myapp/node_modules /myapp/node_modules
 
 ADD prisma .
-RUN npx prisma generate
+RUN pnpm dlx prisma generate
 
 ADD . .
 RUN pnpm run build
