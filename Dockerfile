@@ -39,7 +39,7 @@ ADD prisma .
 RUN pnpm dlx prisma generate
 
 ADD . .
-RUN pnpm run build
+RUN pnpm build
 
 # Finally, build the production image with minimal footprint
 FROM base
